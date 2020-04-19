@@ -24,17 +24,17 @@
                   <input type="text" class="form-control" v-model="newEmpleado.ciudad" placeholder="Ciudad">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" v-model="newEmpleado.puesto.categoría" placeholder="Puesto">
+                  <input type="text" class="form-control" v-model="newEmpleado.categoria" placeholder="Puesto">
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" v-model="newEmpleado.puesto.antiguedad" placeholder="Antiguedad">
+                  <input type="text" class="form-control" v-model="newEmpleado.antiguedad" placeholder="Antiguedad">
                 </div>
                 <button type="submit" class="btn btn-primary" @click="getNewId()">Enviar</button>
               </form>
             </div>
           </div>
         </div>
-        <div class="col-sm text-center" style="margin-top:100px">
+        <div class="col-sm text-center" style="margin-top:150px">
           <img src="./assets/logo.png" width="150" class="logo">
         </div>
         <div class="col-sm">
@@ -61,7 +61,7 @@
                       <td>{{post.nombre}}</td>
                       <td>{{post.apellido}}</td>
                       <td>{{post.ciudad}}</td>
-                      <td>{{post.puesto.categoría}}</td>
+                      <td>{{post.puesto.categoria}}</td>
                       <td class="text-center">{{post.puesto.antiguedad}}</td>
                       <td>
                         <button class="btn btn-danger btn-sm" @click="deleteEmpleado(index)">X</button>
@@ -105,7 +105,7 @@ export default {
         apellido: '',
         ciudad: '',
         puesto: {
-          categoría: '',
+          categoria: '',
           antiguedad: ''      
         }
       }
@@ -114,7 +114,8 @@ export default {
 
   mounted() {
     var that = this;
-    axios.get('https://wso2ei-36e1e.firebaseio.com/empleados.json')
+    // axios.get('https://wso2ei-36e1e.firebaseio.com/empleados.json')
+     axios.get('http://localhost:8280/firebaseapi/listaEmpleados')
     .then(function (response) {
        that.posts = response.data;
        console.log(that.posts)
@@ -126,20 +127,30 @@ export default {
 
   methods: {
     sendEmpleado(data) {
-            axios.post('https://wso2ei-36e1e.firebaseio.com/empleados.json', {
-                 /*  id:this.uuid.substring(0,8),
+      const headers = {
+  'Content-Type': 'application/json',
+  "Access-Control-Allow-Origin": "*"
+};
+
+      console.log(data)
+          //  axios.post('https://wso2ei-36e1e.firebaseio.com/empleados.json', {
+            axios.post('http://localhost:8280/empleado/crear', {
+            // {headers: headers},
+            /*  {
+                  id:this.uuid.substring(0,8),
                   nombre:data.nombre,
                   apellido:data.apellido,
                   ciudad:data.ciudad,
                   puesto: {
-                    categoría:data.puesto.categoría,
+                    categoria:data.puesto.categoria,
                     antiguedad:data.puesto.antiguedad
                   }  */
-                  id:this.uuid,
+                  
+                id:this.uuid.substring(0,8),
                   nombre:data.nombre,
                   apellido:data.apellido,
                   ciudad:data.ciudad,
-                  puesto: data.categoría,
+                  puesto: data.categoria,
                   antiguedad: data.antiguedad 
             } 
       )

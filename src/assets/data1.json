@@ -1,0 +1,8 @@
+{
+	"id":"12345678",
+    "nombre":"Gonzalo",
+    "apellido":"García",
+    "ciudad":"Madrid",
+    "puesto":"developer",
+    "antiguedad":"5"
+}
