@@ -1,6 +1,6 @@
 # wso2app
 
-> Project to test Wso2 EI
+> Project to test Wso2 Enterprise Integrator using Firebase DB and axios in VUE
 
 ## Build Setup
 
